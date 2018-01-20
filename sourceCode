@@ -1,0 +1,198 @@
+//------------------------------------------------------------------
+// File name:  momNpopzPizza.cpp
+// Assign ID:   PROG4c
+// Due Date:    10/03/2017 at hh 
+//
+// Purpose: Write a program to read data and take an order
+//    
+//
+// Author: dgrant De'Shon Grant  
+//
+//------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+int main()
+
+{
+
+float PriPizza;
+float PriDrink;
+float PriBreadStick;
+float PriCookie;
+int quaPizza;
+int quaDrink;
+int quaBreadStick;
+int quaCookie;
+float AmoTendered;
+float totalamount;
+float taxrate = 0.075;
+float salestax;
+float amountdue;
+float changedue;
+
+
+ //-|--------------------------------------------------------------------
+ //-| Display the copyright notice declaring authorship.
+ //-|--------------------------------------------------------------------
+   cout << endl << "(c) 2016, dgrant De'Shon Grant " << endl << endl; 
+
+
+
+
+
+
+ //-|-----------------------------------------------
+ //-|  1. open file prices.dat.
+ //-|-----------------------------------------------
+ifstream inF;
+inF.open("prices.dat");
+
+
+
+   //-|-----------------------------------------------
+   //-|  2. read prices from "prices.dat".
+   //-|     2.1 . read price of pizza.
+   //-|     2.2 . read price of drink.
+   //-|     2.3 . read price of breadsticks.
+   //-|     2.4 . read price of cookie.
+   //-|-----------------------------------------------
+inF >> PriPizza >> PriDrink >> PriBreadStick >> PriCookie;
+inF.close();
+cout << "Enter cost of today's Pizza:" << endl;
+cout << "TODAY'S MENU at PIZZA-N-STUFF" << endl;
+cout << "\n    $" << setw(6) << setprecision(2) << fixed << PriPizza << " - Pizza of the Day" << endl;
+cout << "\n    $" << setw(6) << setprecision(2) << fixed << PriDrink << " - 2L Drink" << endl;
+cout << "\n    $" << setw(6) << setprecision(2) << fixed << PriBreadStick << " - Bread Sticks(6)" << endl;
+cout << "\n    $" << setw(6) << setprecision(2) << fixed << PriCookie << " - Big Cookie" << endl << endl;
+
+   //-|-----------------------------------------------
+   //-|  3. input numbers of items ordered.
+   //-|     3.1 . input number of pizzas.
+   //-|     3.2 . input number of drinks.
+   //-|     3.3 . input number of breadsticks.
+   //-|     3.4 . input number of cookies.
+   //-|-----------------------------------------------
+cout << "Enter number of Pizzas: ";
+cin >> quaPizza;
+cout << endl;
+cout << "Enter number of Drinks: ";
+cin >> quaDrink;
+cout << endl;
+cout << "Enter number of Bread Stick orders: ";
+cin >> quaBreadStick;
+cout << endl;
+cout << "Enter number of Cookies: ";
+cin >> quaCookie;
+cout << endl;
+
+
+
+   //-|-----------------------------------------------
+   //-|  4. compute total cost of order.
+   //-|     4.1 . compute pizzacost. (numpizzas * pizzaPrice).
+   //-|     4.2 . compute drinkcost. (numDrink * drinkPrice).
+   //-|     4.3 . compute breadStickCost. (numBreadStick * breadStickPrice).
+   //-|     4.4 . compute cookieCost. (numcookie * cookiePrice).
+   //-|     4.5 . compute totalamount. (pizzacost + drinkcost + breadStickCost + cookieCost).
+   //-|     4.6 . compute salestax. (totalamount * taxrate).
+   //-|     4.7 . compute amountdue. (totalamount + salestax).
+   //-|-----------------------------------------------
+totalamount = PriPizza * quaPizza + PriDrink * quaDrink + PriBreadStick * quaBreadStick + PriCookie * quaCookie;
+salestax = totalamount * taxrate;
+amountdue = totalamount + salestax;
+
+   //-|-----------------------------------------------
+   //-|  5. close file "prices.dat".
+   //-|-----------------------------------------------
+
+
+
+   //-|-----------------------------------------------
+   //-|  6. read amount tendered.
+   //-|-----------------------------------------------
+cout << "Amount Due: $" << amountdue << endl << endl;
+cout << "Enter payment: ";
+cin >> AmoTendered;
+
+
+
+   //-|-----------------------------------------------
+   //-|  7. compute changedue. ( amountdue - amounttendered).
+   //-|-----------------------------------------------
+changedue = AmoTendered - amountdue;
+
+
+   //-|-----------------------------------------------
+   //-|  8. open "sales.dat".
+   //-|-----------------------------------------------
+ofstream outF;
+outF.open("sales.dat");
+
+
+   //-|-----------------------------------------------
+   //-|  9. display order to screen.
+   //-|-----------------------------------------------
+cout << "CUSTOMER RECEIPT" << endl;
+cout << "===================================" << endl;
+cout << "YOUR ORDER: " << endl;
+cout << "#Pizzas  =   " << quaPizza << endl;
+cout << "#Drinks  =   " << quaDrink << endl;
+cout << "#Breads  =   " << quaBreadStick << endl ;
+cout << "#Cookies =   " << quaCookie << endl;
+cout << "YOUR PAYMENT: " << endl;
+
+outF << "CUSTOMER RECEIPT" << endl;
+outF << "===================================" << endl;
+outF << "YOUR ORDER: " << endl;
+outF << "#Pizzas  =   " << quaPizza << endl;
+outF << "#Drinks  =   " << quaDrink << endl;
+outF << "#Breads  =   " << quaBreadStick << endl ;
+outF << "#Cookies =   " << quaCookie << endl;
+outF << "YOUR PAYMENT: " << endl;
+
+
+   //-|-----------------------------------------------
+   //-| 10. display amount of order.
+   //-| 10.1 . display sales tax.
+   //-| 10.2 . display amount tendered.
+   //-| 10.3 . display change due
+   //-|-----------------------------------------------
+cout << "YOUR PAYMENT:" << endl;
+cout << setw(19) << left << "AMOUNT OF ORDER = $" << setw(6) << right << setprecision(2) << fixed << totalamount << endl;
+cout << setw(19) << left << "SALES TAX       = $" << setw(6) << right << setprecision(2) << fixed << salestax << endl;
+cout << setw (19) << left << "AMOUNT DUE      = $" << setw(6) << right << setprecision(2) << fixed << amountdue << endl;
+cout << setw (19) << left << "AMOUNT TENDERED = $" << setw(6) << right << setprecision(2) << fixed << AmoTendered << endl;
+cout << setw (19) << left << "CHANGE RECEIVED = $" << setw(6) << right << setprecision(2) << fixed << changedue << endl;
+cout << "THANKS FOR YOUR BUSINESS. COME AGAIN." << endl;
+cout << "CUSTOMER RECEIPT" << endl;
+cout << "===================================" << endl;
+cout << "CUSTOMER ORDER:  " << quaPizza << " Pizzas,   " << quaDrink << " Drinks,   " << quaBreadStick << " Breadstick orders,   " << quaCookie << " Cookies." << endl;
+cout << "AMOUNT OF SALE = $ " << amountdue << endl;
+
+
+outF << setw(19) << left << "AMOUNT OF ORDER = $" << setw(6) << right << setprecision(2) << fixed << totalamount << endl;
+outF << setw(19) << left << "SALES TAX       = $" << setw(6) << right << setprecision(2) << fixed << salestax << endl;
+outF << setw (19) << left << "AMOUNT DUE      = $" << setw(6) << right << setprecision(2) << fixed << amountdue << endl;
+outF << setw (19) << left << "AMOUNT TENDERED = $" << setw(6) << right << setprecision(2) << fixed << AmoTendered << endl;
+outF << setw (19) << left << "CHANGE RECEIVED = $" << setw(6) << right << setprecision(2) << fixed << changedue << endl;
+outF << "THANKS FOR YOUR BUSINESS. COME AGAIN." << endl;
+outF << "CUSTOMER RECEIPT" << endl;
+outF << "===================================" << endl;
+outF << "CUSTOMER ORDER:  " << quaPizza << " Pizzas,   " << quaDrink << " Drinks,   " << quaBreadStick << " Breadstick orders,   " << quaCookie << " Cookies." << "  ==> AMOUNT OF SALE = $ " << 
+setprecision(2) << totalamount << endl;
+outF << "AMOUNT OF SALE = $ " << totalamount << endl; 
+   //-|-----------------------------------------------
+   //-| 11. close "sales.dat".
+   //-|-----------------------------------------------
+
+outF.close();
+//-|--------------------------------------------------------------------
+//-| Display the copyright notice declaring authorship again.
+//-|--------------------------------------------------------------------
+   cout << endl << "(c) 2016, dgrant De'Shon Grant  " << endl << endl; 
+
+
+return 0;
+}//main
